@@ -204,30 +204,6 @@
         <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 mb-8 hidden">
             <!-- Tabel Sektor Dihilangkan karena data region tidak memiliki breakdown sektor -->
         </div>
-        
-        <!-- c. Ranking Region (DIUBAH MENJADI 2 KOLOM) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Ranking 1: Emisi CO₂ Terbesar -->
-                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                    <h3 class="text-lg font-semibold mb-4 text-carbon-dark">Top 5 Emisi CO₂ Terbesar (Juta Ton)</h3>
-                    <table class="w-full text-left text-sm divide-y divide-gray-200">
-                        <!-- PERBAIKAN: Menambahkan text-left eksplisit untuk Rank dan Region -->
-                        <thead class="bg-gray-50"><tr><th class="px-4 py-2 text-left">Rank</th><th class="px-4 py-2 text-left">Region</th><th class="px-4 py-2 text-right">Emisi</th></tr></thead>
-                        <tbody id="rank-emisi-body"></tbody>
-                    </table>
-                </div>
-
-                <!-- Ranking 2: Valuasi Karbon Terbesar -->
-            <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
-                <h3 class="text-lg font-semibold mb-4 text-carbon-dark">Top 5 Valuasi Karbon Terbesar (Miliar Rp)</h3>
-                    <table class="w-full text-left text-sm divide-y divide-gray-200">
-                        <!-- PERBAIKAN: Menambahkan text-left eksplisit untuk Rank dan Region -->
-                        <thead class="bg-gray-50"><tr><th class="px-2 py-4 text-left">Rank</th><th class="px-4 py-2 text-left">Region</th><th class="px-4 py-2 text-right">Valuasi</th></tr></thead>
-                        <tbody id="rank-valuation-body"></tbody>
-                    </table>
-                </div>
-                <!-- Ranking Kepatuhan Pajak (Dihapus) -->
-            </div>
     </div>
     
     <!-- ========================================================== -->
@@ -311,4 +287,5 @@
 <script src="system.js"></script>
 
 </body>
+
 </html>
