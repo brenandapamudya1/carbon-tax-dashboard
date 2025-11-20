@@ -21,17 +21,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sectorColors = ['#F87171', '#FBBF24', '#34D399', '#60A5FA', '#A78BFA', '#9CA3AF']; // Merah, Amber, Hijau, Biru, Violet, Abu-abu
 
-    const provinceData = [
-        { id: 'province-A', name: 'Jawa Barat', emission_ton: 12500000, tax_collected: 85000000000, industry: 'Manufaktur', trend: 5.2, risk: 'Tinggi', category_id: 'tinggi', compliance: 0.85, emission_history: [11.5, 12.0, 12.2, 12.5], sector_breakdown: [{name: 'Manufaktur', emission: 8.0}, {name: 'Energi', emission: 3.0}, {name: 'Transportasi', emission: 1.0}, {name: 'Lainnya', emission: 0.5}] },
-        { id: 'province-B', name: 'Banten', emission_ton: 9800000, tax_collected: 65000000000, industry: 'Energi', trend: -1.5, risk: 'Sedang', category_id: 'sedang', compliance: 0.92, emission_history: [10.0, 9.5, 9.8, 9.9], sector_breakdown: [{name: 'Energi', emission: 5.0}, {name: 'Transportasi', emission: 2.5}, {name: 'Manufaktur', emission: 1.5}] },
-        { id: 'province-C', name: 'Riau', emission_ton: 6700000, tax_collected: 42000000000, industry: 'Perkebunan (Kelapa Sawit)', trend: 2.1, risk: 'Sedang', category_id: 'sedang', compliance: 0.88, emission_history: [6.0, 6.5, 6.8, 6.7], sector_breakdown: [{name: 'Agrikultur', emission: 4.0}, {name: 'Energi', emission: 1.5}, {name: 'Lainnya', emission: 1.0}] },
-        { id: 'province-D', name: 'Kalimantan Timur', emission_ton: 15500000, tax_collected: 105000000000, industry: 'Pertambangan', trend: 8.9, risk: 'Tinggi', category_id: 'tinggi', compliance: 0.79, emission_history: [12.0, 13.0, 14.5, 15.0], sector_breakdown: [{name: 'Pertambangan', emission: 10.0}, {name: 'Energi', emission: 4.0}, {name: 'Lainnya', emission: 1.0}] },
-        { id: 'province-E', name: 'Sulawesi Selatan', emission_ton: 3100000, tax_collected: 18000000000, industry: 'Agrikultur', trend: -3.0, risk: 'Rendah', category_id: 'rendah', compliance: 0.98, emission_history: [3.5, 3.2, 3.1, 3.1], sector_breakdown: [{name: 'Agrikultur', emission: 2.0}, {name: 'Lainnya', emission: 1.0}] },
-        { id: 'province-F', name: 'Sumatera Utara', emission_ton: 7900000, tax_collected: 51000000000, industry: 'Logistik', trend: 0.5, risk: 'Sedang', category_id: 'sedang', compliance: 0.90, emission_history: [7.5, 7.8, 7.9, 7.9], sector_breakdown: [{name: 'Transportasi', emission: 4.5}, {name: 'Manufaktur', emission: 2.0}, {name: 'Lainnya', emission: 1.0}] },
-        { id: 'province-G', name: 'Papua', emission_ton: 1500000, tax_collected: 9000000000, industry: 'Kehutanan', trend: -5.1, risk: 'Rendah', category_id: 'rendah', compliance: 0.99, emission_history: [1.8, 1.6, 1.5, 1.5], sector_breakdown: [{name: 'Lainnya', emission: 1.0}, {name: 'Pertambangan', emission: 0.3}] },
-        { id: 'province-H', name: 'Bali', emission_ton: 1100000, tax_collected: 7500000000, industry: 'Pariwisata', trend: -2.3, risk: 'Rendah', category_id: 'rendah', compliance: 0.95, emission_history: [1.3, 1.2, 1.1, 1.1], sector_breakdown: [{name: 'Transportasi', emission: 0.5}, {name: 'Lainnya', emission: 0.4}] },
-        { id: 'province-I', name: 'Maluku', emission_ton: 800000, tax_collected: 5000000000, industry: 'Perikanan', trend: 1.0, risk: 'Rendah', category_id: 'rendah', compliance: 0.97, emission_history: [0.7, 0.7, 0.7, 0.8], sector_breakdown: [{name: 'Agrikultur', emission: 0.6}, {name: 'Lainnya', emission: 0.1}] },
-    ];
+    const KlasterData = [
+      { region_name: "Pacitan", cluster_id: 1, carbon_valuation: 9922.96, ipm: 70.19, pdrb: 33149, tpak: 81.64 },
+      { region_name: "Ponorogo", cluster_id: 1, carbon_valuation: 8570.24, ipm: 72.5, pdrb: 26314, tpak: 75.88 },
+      { region_name: "Trenggalek", cluster_id: 1, carbon_valuation: 8412.67, ipm: 71.73, pdrb: 30681, tpak: 80.72 },
+      { region_name: "Tulungagung", cluster_id: 1, carbon_valuation: 6534.50, ipm: 74.61, pdrb: 43297, tpak: 74.7 },
+      { region_name: "Blitar", cluster_id: 3, carbon_valuation: 10882.16, ipm: 72.49, pdrb: 35812, tpak: 73.5 },
+      { region_name: "Kediri", cluster_id: 3, carbon_valuation: 8355.30, ipm: 73.96, pdrb: 30193, tpak: 68.74 },
+      { region_name: "Malang", cluster_id: 3, carbon_valuation: 25017.96, ipm: 72.16, pdrb: 47272, tpak: 70.66 },
+      { region_name: "Lumajang", cluster_id: 3, carbon_valuation: 12657.32, ipm: 67.87, pdrb: 35178, tpak: 68.49 },
+      { region_name: "Jember", cluster_id: 3, carbon_valuation: 23504.42, ipm: 68.64, pdrb: 36837, tpak: 72.3 },
+      { region_name: "Banyuwangi", cluster_id: 1, carbon_valuation: 26056.29, ipm: 72.61, pdrb: 58086, tpak: 79.04 },
+      { region_name: "Bondowoso", cluster_id: 3, carbon_valuation: 10359.48, ipm: 67.99, pdrb: 31432, tpak: 74.39 },
+      { region_name: "Situbondo", cluster_id: 1, carbon_valuation: 10125.78, ipm: 69.16, pdrb: 36190, tpak: 75.28 },
+      { region_name: "Probolinggo", cluster_id: 3, carbon_valuation: 10322.54, ipm: 67.79, pdrb: 36006, tpak: 69.48 },
+      { region_name: "Pasuruan", cluster_id: 3, carbon_valuation: 7656.90, ipm: 70.29, pdrb: 113683, tpak: 71.21 },
+      { region_name: "Sidoarjo", cluster_id: 2, carbon_valuation: 2300.51, ipm: 81.55, pdrb: 127382, tpak: 69.62 },
+      { region_name: "Mojokerto", cluster_id: 2, carbon_valuation: 4060.96, ipm: 75.53, pdrb: 91112, tpak: 72.51 },
+      { region_name: "Jombang", cluster_id: 3, carbon_valuation: 4585.48, ipm: 74.6, pdrb: 36991, tpak: 71.91 },
+      { region_name: "Nganjuk", cluster_id: 3, carbon_valuation: 5614.54, ipm: 73.71, pdrb: 29917, tpak: 66.89 },
+      { region_name: "Madiun", cluster_id: 3, carbon_valuation: 5285.97, ipm: 72.97, pdrb: 31588, tpak: 72.49 },
+      { region_name: "Magetan", cluster_id: 1, carbon_valuation: 3391.90, ipm: 75.41, pdrb: 33627, tpak: 78.48 },
+      { region_name: "Ngawi", cluster_id: 3, carbon_valuation: 5839.93, ipm: 72.47, pdrb: 27619, tpak: 69.43 },
+      { region_name: "Bojonegoro", cluster_id: 1, carbon_valuation: 8156.74, ipm: 70.85, pdrb: 74242, tpak: 74.29 },
+      { region_name: "Tuban", cluster_id: 1, carbon_valuation: 6266.77, ipm: 70.34, pdrb: 67176, tpak: 74.73 },
+      { region_name: "Lamongan", cluster_id: 1, carbon_valuation: 5496.04, ipm: 74.53, pdrb: 35726, tpak: 75.08 },
+      { region_name: "Gresik", cluster_id: 2, carbon_valuation: 4193.82, ipm: 77.98, pdrb: 130527, tpak: 70.12 },
+      { region_name: "Bangkalan", cluster_id: 3, carbon_valuation: 4585.46, ipm: 65.75, pdrb: 25408, tpak: 71.49 },
+      { region_name: "Sampang", cluster_id: 3, carbon_valuation: 4335.43, ipm: 64.13, pdrb: 23978, tpak: 73.54 },
+      { region_name: "Pamekasan", cluster_id: 1, carbon_valuation: 2948.40, ipm: 67.96, pdrb: 23842, tpak: 77.14 },
+      { region_name: "Sumenep", cluster_id: 1, carbon_valuation: 8601.20, ipm: 68.61, pdrb: 37474, tpak: 78.86 },
+      { region_name: "Kota Kediri", cluster_id: 2, carbon_valuation: 335.51, ipm: 80.44, pdrb: 541068, tpak: 71.83 },
+      { region_name: "Kota Blitar", cluster_id: 2, carbon_valuation: 171.05, ipm: 80.63, pdrb: 55523, tpak: 72.26 },
+      { region_name: "Kota Malang", cluster_id: 2, carbon_valuation: 632.96, ipm: 83.39, pdrb: 107542, tpak: 67.58 },
+      { region_name: "Kota Probolinggo", cluster_id: 2, carbon_valuation: 256.33, ipm: 75.43, pdrb: 57885, tpak: 70.61 },
+      { region_name: "Kota Pasuruan", cluster_id: 1, carbon_valuation: 156.74, ipm: 77.17, pdrb: 48058, tpak: 75.65 },
+      { region_name: "Kota Mojokerto", cluster_id: 2, carbon_valuation: 65.66, ipm: 80.07, pdrb: 59061, tpak: 72.5 },
+      { region_name: "Kota Madiun", cluster_id: 2, carbon_valuation: 143.54, ipm: 82.71, pdrb: 86285, tpak: 69.29 },
+      { region_name: "Surabaya", cluster_id: 2, carbon_valuation: 859.45, ipm: 83.45, pdrb: 245685, tpak: 68.73 },
+      { region_name: "Batu", cluster_id: 1, carbon_valuation: 1246.09, ipm: 78.18, pdrb: 93214, tpak: 78.99 }
+    ];
+
+    const CentroidData = {
+        1: { 
+            name: 'Klaster 1: Fokus Keseimbangan', 
+            description: 'Klaster ini menunjukkan valuasi karbon dan PDRB menengah, namun memiliki TPAK (Partisipasi Angkatan Kerja) yang sangat tinggi. Perlu menjaga keseimbangan antara pertumbuhan ekonomi dan pelestarian lingkungan.',
+            color: '#3B82F6', // carbon-blue
+            values: { ekonomi_karbon: 7563.31, ipm: 72.42, pdrb: 45791.14, tpak: 77.81 } 
+        },
+        2: { 
+            name: 'Klaster 2: Berdaya Saing Tinggi', 
+            description: 'Terdiri dari Kota-Kota besar dengan IPM tertinggi dan PDRB yang sangat besar, namun valuasi karbonnya rendah. Ini mengindikasikan efisiensi ekonomi yang tinggi. Klaster ini adalah pemimpin dalam pembangunan berkelanjutan.',
+            color: '#10B981', // carbon-green
+            values: { ekonomi_karbon: 1301.98, ipm: 80.12, pdrb: 150207.00, tpak: 70.50 } 
+        },
+        3: { 
+            name: 'Klaster 3: Emisi/Valuasi Tinggi', 
+            description: 'Klaster ini dicirikan oleh Valuasi Karbon (Emisi) yang sangat tinggi, IPM rendah, dan PDRB rendah. Ini menunjukkan tekanan lingkungan yang besar dan potensi risiko kegagalan ekonomi karbon.',
+            color: '#EF4444', // carbon-red
+            values: { ekonomi_karbon: 9928.78, ipm: 70.34, pdrb: 38078.14, tpak: 71.04 } 
+        }
+    };
 
     const regionData = [
     {
@@ -297,7 +347,8 @@ document.addEventListener('DOMContentLoaded', () => {
         source_url2: 'https://databoks.katadata.co.id/lingkungan/statistik/b0d4d2a1d9aaa4c/ini-industri-penyumbang-emisi-gas-rumah-kaca-terbesar-di-indonesia',
         source_url3: 'https://www.theglobaleconomy.com/Indonesia/carbon_dioxide_emissions/?utm_source=chatgpt.com',
         source_url4: 'https://carbonpricingdashboard.worldbank.org/',
-        source_url_carbon_price_chart: 'https://www.cnbc.com/asia-carbon-price-trend' // Sumber untuk chart baru
+        source_url_carbon_price_chart: 'https://carbonpricingdashboard.worldbank.org/compliance/price', // Sumber untuk chart baru
+        source_url_npp: 'https://developers.google.com/earth-engine/datasets/catalog/MODIS_061_MOD17A3HGF'
     };
 
     // ==========================================================
@@ -425,7 +476,9 @@ document.addEventListener('DOMContentLoaded', () => {
             renderIndustryPage();
         } else if (pageId === 'page-simulasi-pajak') {
             renderSimulationPage();
-        }
+        } else if (pageId === 'page-analisis-klaster') { // BARU
+            renderClusterPage();
+        }
     }
 
     // Pasang Event Listener untuk navigasi
@@ -442,7 +495,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================
 
     function renderNationalSummary() {
-        const { total_emission_mt, emission_vs_last_year, total_companies, avg_emission_per_company, new_headline_value, new_headline_year, source_url1, source_url2, source_url3, source_url4 } = nationalSummary;
+        const { total_emission_mt, emission_vs_last_year, total_companies, avg_emission_per_company, new_headline_value, new_headline_year, source_url1, source_url2, source_url3, source_url4, } = nationalSummary;
         //card 1
         document.getElementById('emisi-value').textContent = `${formatNumber(total_emission_mt)} juta ton`;
         const badgeEmisi = document.getElementById('emisi-badge');
@@ -505,16 +558,63 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('rata-emisi-value').textContent = `${formatNumber(nationalSummary.avg_emission_per_company)} Rupiah`;
     }
 
+    function showDashboard() {
+        const loginPage = document.getElementById('login-page');
+        const dashboardContent = document.getElementById('dashboard-content');
+        
+        // Sembunyikan halaman login dan tampilkan dashboard
+        if (loginPage && dashboardContent) {
+            loginPage.classList.add('hidden');
+            dashboardContent.classList.remove('hidden');
+        }
+
+        // Panggil inisialisasi tema dan dashboard setelah berhasil login
+        initializeTheme(); 
+        // Pastikan dashboard dimulai dari halaman pertama
+        switchPage('page-dashboard-nasional'); 
+    }
+
+    function handleLogin(event) {
+        event.preventDefault(); // Mencegah form submit default
+        
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('login-error-message');
+
+        // SIMULASI LOGIN: Cukup cek apakah ada input
+        if (username && password) {
+            errorMessage.classList.add('hidden');
+            showDashboard();
+        } else {
+            errorMessage.classList.remove('hidden');
+        }
+    }
+
     // ==========================================================
     // 5. RENDER CHART HARGA KARBON (BARU)
     // ==========================================================
     
     function renderCarbonPriceChart() {
+        const { source_url_carbon_price_chart, source_url_npp } = nationalSummary;
         destroyChart('carbon-price-chart');
         const ctx = document.getElementById('carbon-price-chart').getContext('2d');
         const data = nationalSummary.carbon_price_trend;
         const isDark = bodyElement.classList.contains('dark');
         const textColor = isDark ? '#E0E0E0' : '#1F2937';
+
+        const sourceLinkCard5 = document.getElementById('karbon-price-source-link');
+        sourceLinkCard5.href = source_url_carbon_price_chart;
+        sourceLinkCard5.textContent = 'Sumber: World Bank Carbon Pricing Dashboard';
+        sourceLinkCard5.classList.add('font-bold'); 
+        sourceLinkCard5.classList.remove('text-carbon-green', 'font-semibold');
+        sourceLinkCard5.classList.add('text-gray-500', 'text-xs', 'hover:text-carbon-blue');
+
+        const sourceLinkCard6 = document.getElementById('npp-source-link');
+        sourceLinkCard6.href = source_url_npp;
+        sourceLinkCard6.textContent = 'Sumber: Google Earth Engine';
+        sourceLinkCard6.classList.add('font-bold'); 
+        sourceLinkCard6.classList.remove('text-carbon-green', 'font-semibold');
+        sourceLinkCard6.classList.add('text-gray-500', 'text-xs', 'hover:text-carbon-blue');
 
         new Chart(ctx, {
             type: 'line',
@@ -524,7 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     {
                         label: 'Harga Karbon (USD/ton)',
                         data: data.map(item => item.price),
-                        borderColor: '#10B981', // carbon-green
+                        borderColor: '#10B981',
                         backgroundColor: 'rgba(16, 185, 129, 0.1)',
                         borderWidth: 2,
                         yAxisID: 'y1',
@@ -734,41 +834,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateChartColors();
     }
 
-    function renderRankingTables() {
-        // Menggunakan regionData
-        const data = regionData; 
-
-        // 1. Ranking Emisi Terbesar
-        const rankEmisi = [...data].sort((a, b) => b.emission_ton - a.emission_ton);
-        // 2. Ranking Valuasi Karbon Terbesar (BARU)
-        const rankValuation = [...data].sort((a, b) => b.carbon_valuation - a.carbon_valuation);
-
-        // Hapus ranking lama: const rankPeningkatan, const rankKepatuhan
-
-        const fillTable = (bodyId, tableData, valueKey, formatFunc, unit) => {
-            const tbody = document.getElementById(bodyId);
-            tbody.innerHTML = '';
-            tableData.slice(0, 5).forEach((p, index) => {
-                const tr = document.createElement('tr');
-                tr.className = index < 3 ? 'font-semibold' : 'text-gray-700';
-                tr.innerHTML = `
-                    <td class="px-4 py-2 text-left">${index + 1}</td>
-                    <td class="px-4 py-2 text-left">${p.name}</td>
-                    <td class="px-4 py-2 text-left">${formatFunc(p[valueKey])}${unit}</td>
-                `;
-                tbody.appendChild(tr);
-            });
-        };
-
-        // Mengisi Tabel Emisi Terbesar
-        fillTable('rank-emisi-body', rankEmisi, 'emission_ton', formatNumber, ' JT');
-
-        // Mengisi Tabel Valuasi Karbon Terbesar (BARU)
-        fillTable('rank-valuation-body', rankValuation, 'carbon_valuation', formatNumber, ' M');
-        
-        // Menghapus panggilan untuk rank-trend-body dan rank-compliance-body
-    }
-
     document.getElementById('export-data').addEventListener('click', () => {
         // Hanya export data yang relevan
         const exportableData = regionData.map(r => ({
@@ -851,7 +916,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     tooltip: {
                         callbacks: {
                             // Menampilkan nilai dalam Miliar Rp
-                            label: (context) => `${context.dataset.label || ''}: ${formatNumber(context.parsed.y)} Miliar Rp`
+                            label: (context) => `${context.dataset.label || ''}: ${formatNumber(context.parsed.y)} Triliun Rp`
                         }
                     }
                 },
@@ -886,7 +951,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td class="px-4 py-2 text-center">
                     <span class="inline-block px-3 py-1 rounded-full ${intensityColor}">${(s.intensity * 100).toFixed(0)}%</span>
                 </td>
-                <td class="px-4 py-2 text-center text-sm ${taxColor}">${formatNumber(s.tax_collected)} M</td>
+                <td class="px-4 py-2 text-center text-sm ${taxColor}">${formatNumber(s.tax_collected)} T</td>
             </tr>`;
         });
 
@@ -950,6 +1015,156 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
+    // ==========================================================
+// 8. RENDER HALAMAN ANALISIS KLASTER ML (BARU)
+// ==========================================================
+
+function renderClusterPage() {
+    renderClusterDescriptionCards();
+    renderClusterRegionTable('all'); // Tampilkan semua secara default
+    renderClusterCentroidChart();
+
+    const select = document.getElementById('cluster-select');
+    // Hapus listener lama sebelum menambahkan yang baru
+    select.onchange = null;
+    select.addEventListener('change', (e) => renderClusterRegionTable(e.target.value));
+    
+    updateChartColors();
+}
+
+function renderClusterDescriptionCards() {
+    const container = document.getElementById('cluster-description-cards');
+    container.innerHTML = '';
+    
+    Object.keys(CentroidData).forEach(key => {
+        const data = CentroidData[key];
+        const cardColor = data.color;
+        
+        const cardHTML = `
+            <div class="p-4 rounded-xl border border-gray-200 dark:border-gray-600 shadow-md transition duration-300 hover:shadow-lg" style="border-left: 5px solid ${cardColor};">
+                <h4 class="text-lg font-bold mb-2" style="color: ${cardColor};">${data.name}</h4>
+                <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">${data.description}</p>
+                <div class="mt-3 space-y-1 text-xs text-gray-600 dark:text-gray-400">
+                    <p>Valuasi Karbon (Rata-rata): <span class="font-semibold">${formatNumber(data.values.ekonomi_karbon)}</span></p>
+                    <p>IPM (Rata-rata): <span class="font-semibold">${formatNumber(data.values.ipm)}</span></p>
+                    <p>PDRB (Rata-rata): <span class="font-semibold">${formatNumber(data.values.pdrb)}</span></p>
+                    <p>TPAK (Rata-rata): <span calss="font-semibold">${formatNumber(data.values.tpak)}</span></p>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHTML;
+    });
+}
+
+function renderClusterRegionTable(clusterId) {
+    const tableContainer = document.getElementById('cluster-region-table');
+    const regionCountSpan = document.getElementById('region-count');
+    
+    let filteredData;
+    if (clusterId === 'all') {
+        filteredData = KlasterData;
+    } else {
+        filteredData = KlasterData.filter(r => r.cluster_id == clusterId);
+    }
+    
+    regionCountSpan.textContent = `Total: ${filteredData.length} Region`;
+
+    let tableHTML = `<table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+        <thead class="bg-gray-50 dark:bg-gray-700">
+            <tr>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Region</th>
+                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Klaster ID</th>
+                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Valuasi Karbon (Milliar Rupiah)</th>
+                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">IPM</th>
+                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">PDRB</th>
+                <th class="px-4 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">TPAK</th>
+            </tr>
+        </thead>
+        <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">`;
+
+    filteredData.forEach(r => {
+        const clusterColor = CentroidData[r.cluster_id].color;
+        tableHTML += `
+            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                <td class="px-4 py-3 whitespace-nowrap text-sm font-semibold text-carbon-dark dark:text-white">${r.region_name}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-right">
+                    <span class="inline-block px-3 py-1 text-xs font-bold rounded-full text-white" style="background-color: ${clusterColor};">
+                        C${r.cluster_id}
+                    </span>
+                </td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">${formatNumber(r.carbon_valuation)}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">${formatNumber(r.ipm)}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">${formatNumber(r.pdrb)}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">${formatNumber(r.tpak)}</td>
+            </tr>
+        `;
+    });
+
+    tableHTML += `</tbody></table>`;
+    tableContainer.innerHTML = tableHTML;
+}
+
+function renderClusterCentroidChart() {
+    destroyChart('cluster-centroid-chart');
+    const ctx = document.getElementById('cluster-centroid-chart').getContext('2d');
+    
+    // Normalisasi data Centroid untuk grafik Radar
+    const labels = ['Valuasi Karbon', 'IPM', 'PDRB', 'TPAK'];
+    const clusterKeys = Object.keys(CentroidData);
+    
+    // Mendapatkan nilai maksimum untuk normalisasi (agar grafik radar tidak terlalu kecil)
+    const maxValues = {
+        ekonomi_karbon: Math.max(...clusterKeys.map(k => CentroidData[k].values.ekonomi_karbon)),
+        ipm: Math.max(...clusterKeys.map(k => CentroidData[k].values.ipm)),
+        pdrb: Math.max(...clusterKeys.map(k => CentroidData[k].values.pdrb)),
+        tpak: Math.max(...clusterKeys.map(k => CentroidData[k].values.tpak))
+    };
+
+    const datasets = clusterKeys.map(key => {
+        const data = CentroidData[key].values;
+        return {
+            label: CentroidData[key].name,
+            data: [
+                // Normalisasi nilai relatif terhadap maksimum
+                (data.ekonomi_karbon / maxValues.ekonomi_karbon) * 100,
+                (data.ipm / maxValues.ipm) * 100,
+                (data.pdrb / maxValues.pdrb) * 100,
+                (data.tpak / maxValues.tpak) * 100
+            ],
+            backgroundColor: CentroidData[key].color + '40', // Transparan
+            borderColor: CentroidData[key].color,
+            borderWidth: 2,
+            pointBackgroundColor: CentroidData[key].color,
+            pointBorderColor: '#fff'
+        };
+    });
+
+    new Chart(ctx, {
+        type: 'radar',
+        data: { labels, datasets },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            },
+            scales: {
+                r: {
+                    angleLines: { color: 'rgba(150, 150, 150, 0.5)' },
+                    grid: { color: 'rgba(150, 150, 150, 0.5)' },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    pointLabels: {
+                        font: { size: 14 }
+                    },
+                    ticks: {
+                        display: false // Sembunyikan label skala nilai (0, 20, 40, ...)
+                    }
+                }
+            }
+        }
+    });
+}
 
     // ==========================================================
     // 8. LOGIKA EXPORT DATA (CSV)
@@ -1000,6 +1215,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================
     // 9. INITIALISASI DASHBOARD
     // ==========================================================
-    initializeTheme();
-    switchPage('page-dashboard-nasional'); 
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    } else {
+        // Fallback jika tidak ada halaman login (misalnya untuk pengujian langsung)
+        initializeTheme();
+        switchPage('page-dashboard-nasional');
+    }
 });
