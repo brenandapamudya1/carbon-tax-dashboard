@@ -35,7 +35,31 @@
 </head>
 <body data-theme="light"> <!-- data-theme akan diatur oleh JS/CSS -->
 
-<div class="dashboard-container">
+<div id="login-page" class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
+    <div class="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700">
+        <h2 class="text-3xl font-extrabold text-center text-carbon-dark dark:text-white">Akses Dashboard</h2>
+        <p class="text-center text-gray-500 dark:text-gray-400">Masuk untuk melihat Analisis Pajak Karbon.</p>
+        
+        <form id="login-form" class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username </label>
+                <input type="text" id="username" required value="" class="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-carbon-blue focus:border-carbon-blue" placeholder="Masukkan username">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password </label>
+                <input type="password" id="password" required value="" class="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-carbon-blue focus:border-carbon-blue" placeholder="Masukkan password">
+            </div>
+            <button type="submit" class="w-full bg-carbon-blue hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-lg">
+                Masuk ke Dashboard
+            </button>
+        </form>
+
+        <p id="login-error-message" class="text-center text-sm text-carbon-red hidden">Username atau password salah.</p>
+    </div>
+</div>
+
+<div id="dashboard-content" class="hidden"> 
+    <div class="dashboard-container">
     <!-- Header Baru dengan Toggle Dark Mode dan Export -->
     <header class="py-6 mb-4 border-b border-gray-200 flex justify-between items-center">
         <div>
@@ -62,6 +86,7 @@
         <a href="#" class="nav-item py-3 text-sm font-medium text-gray-500 hover:text-carbon-dark transition duration-150" data-page="page-perbandingan-provinsi">Perbandingan Regional</a>
         <a href="#" class="nav-item py-3 text-sm font-medium text-gray-500 hover:text-carbon-dark transition duration-150" data-page="page-sektor-industri">Analisis Sektor</a>
         <a href="#" class="nav-item py-3 text-sm font-medium text-gray-500 hover:text-carbon-dark transition duration-150" data-page="page-simulasi-pajak">Simulasi Pajak</a>
+        <a href="#" class="nav-item py-3 text-sm font-medium text-gray-500 hover:text-carbon-dark transition duration-150" data-page="page-analisis-klaster">Analisis Klaster ML</a>
     </nav>
     
     <!-- ========================================================== -->
@@ -144,7 +169,7 @@
                 <div id="avg-emisi-tooltip" class="mt-3 text-sm text-gray-500">
                     <!-- Rata-rata Emisi Perusahaan dihapus -->
                 </div>
-
+                    <span class="text-sm font-medium text-black-500">Harga rata-rata karbon di market ETS Asia di angka Rp 12.031,9/Ton co2</span>
                 <div class="text-sm text-gray-500 mt-3 border-t pt-2 border-gray-100 dark:border-gray-700">
                     <a id="harga-karbon-source-link" href="#" target="_blank" class="text-xs text-gray-500 font-bold hover:text-carbon-blue transition duration-150">Sumber: World Bank (Data Rata-Rata)</a>
                 </div>
@@ -158,11 +183,17 @@
                 <div class="h-80">
                     <canvas id="carbon-price-chart"></canvas>
                 </div>
+                <div class="text-sm text-gray-500 mt-3 border-t pt-2 border-gray-100 dark:border-gray-700">
+                    <a id="karbon-price-source-link" href="#" target="_blank" class="text-xs text-gray-500 font-bold hover:text-carbon-blue transition duration-150">Sumber: World Bank Carbon Pricing Dashboard</a>
+                </div>
             </div>
             <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                 <h2 class="text-xl font-semibold mb-4 text-carbon-dark">Rata-Rata Emisi CO₂ Jawa Timur (2020-2023)</h2>
                 <div class="h-80">
                     <canvas id="emisi-line-chart"></canvas>
+                </div>
+                <div class="text-sm text-gray-500 mt-3 border-t pt-2 border-gray-100 dark:border-gray-700">
+                    <a id="npp-source-link" href="#" target="_blank" class="text-xs text-gray-500 font-bold hover:text-carbon-blue transition duration-150">Sumber: Google Earth Engine</a>
                 </div>
             </div>
         </section>
@@ -281,8 +312,66 @@
             </div>
         </div>
     </div>
-</div>
 
+<!-- POSISI: Sebelum penutup </div></div> (yaitu di akhir konten dashboard) -->
+
+    <!-- ========================================================== -->
+    <!-- 5. HALAMAN ANALISIS KLASTER K-MEANS (BARU) -->
+    <!-- ========================================================== -->
+    
+    <div id="page-analisis-klaster" class="page-content hidden">
+        <h2 class="text-2xl font-bold mb-6 text-carbon-dark">Implementasi K-Means: Klasifikasi Region</h2>
+        
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <!-- Kolom 1: Karakteristik Klaster (Visualisasi Centroid) -->
+            <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Karakteristik 3 Klaster (Centroid)</h3>
+                <p class="text-sm text-gray-500 mb-4">Grafik ini memvisualisasikan rata-rata nilai variabel untuk setiap klaster.</p>
+                <div class="h-80 flex justify-center items-center">
+                    <canvas id="cluster-centroid-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Kolom 2 & 3: Filter dan Identifikasi Region -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Tabel 1: Filter Region dan Hasil Klaster -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Identifikasi Region per Klaster</h3>
+                    
+                    <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4 items-center">
+                        <label for="cluster-select" class="text-sm font-medium text-gray-700 dark:text-gray-300">Filter Klaster:</label>
+                        <select id="cluster-select" class="p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-carbon-blue focus:border-carbon-blue transition duration-150 w-full sm:w-auto">
+                            <option value="all">Semua Klaster (38 Region)</option>
+                            <option value="1">Klaster 1: Fokus Keseimbangan</option>
+                            <option value="2">Klaster 2: Berdaya Saing Tinggi</option>
+                            <option value="3">Klaster 3: Emisi/Valuasi Tinggi</option>
+                        </select>
+                        <p id="region-count" class="text-sm text-gray-500 sm:ml-auto">Total: -- Region</p>
+                    </div>
+
+                    <div id="cluster-region-table" class="overflow-x-auto mt-4">
+                        <!-- Tabel region akan diisi oleh JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ringkasan Klaster -->
+        <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Deskripsi Klaster</h3>
+            <div id="cluster-description-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Kartu Deskripsi Klaster akan diisi oleh JS -->
+            </div>
+        </div>
+
+    </div>
+
+<!-- ========================================================== -->
+<!-- AKHIR DARI HALAMAN ANALISIS KLASTER -->
+<!-- ========================================================== -->
+
+</div>
+</div>
 <!-- Link ke JavaScript eksternal -->
 <script src="system.js"></script>
 
