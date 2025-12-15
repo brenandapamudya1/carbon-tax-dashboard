@@ -5,23 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dasbor Pajak Karbon Jawa Timur</title>
     
-    <!-- Link ke CSS eksternal -->
-    <link rel="stylesheet" href="design.css">
+    <link rel="stylesheet" href="style.css">
 
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js CDN for graphics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 
-    <!-- Configuration Tailwind (HARUS tetap di sini jika menggunakan CDN) -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        'carbon-green': '#10B981', // Hijau (Rendah Risiko)
-                        'carbon-yellow': '#F59E0B', // Kuning (Sedang Risiko)
-                        'carbon-red': '#EF4444',   // Merah (Tinggi Risiko)
+                        'carbon-green': '#10B981',
+                        'carbon-yellow': '#F59E0B',
+                        'carbon-red': '#EF4444',
                         'carbon-blue': '#3B82F6',
                         'carbon-dark': '#1F2937',
                     },
@@ -33,7 +29,7 @@
         }
     </script>
 </head>
-<body data-theme="light"> <!-- data-theme akan diatur oleh JS/CSS -->
+<body data-theme="light">
 
 <div id="login-page" class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
     <div class="w-full max-w-md p-8 space-y-6 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700">
@@ -60,19 +56,16 @@
 
 <div id="dashboard-content" class="hidden"> 
     <div class="dashboard-container">
-    <!-- Header Baru dengan Toggle Dark Mode dan Export -->
     <header class="py-6 mb-4 border-b border-gray-200 flex justify-between items-center">
         <div>
             <h1 class="text-3xl font-extrabold text-carbon-dark">Dasbor Pajak Karbon Jawa Timur</h1>
             <p class="text-gray-500 mt-1 mb-0">Analisis Emisi, Regional, Sektor, dan Simulasi Pajak.</p>
         </div>
         <div class="flex items-center space-x-3">
-             <!-- Tombol Export CSV -->
              <button id="export-data" class="px-3 py-2 text-sm bg-carbon-green text-white rounded-lg hover:bg-green-600 transition duration-200 shadow-md flex items-center">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 Export CSV
             </button>
-            <!-- Tombol Dark Mode Toggle -->
             <button id="theme-toggle" class="p-3 rounded-full bg-gray-200 text-carbon-dark hover:bg-gray-300 transition duration-300" aria-label="Toggle Dark Mode">
                 <svg id="moon-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                 <svg id="sun-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.354 5.354l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -80,7 +73,6 @@
         </div>
     </header>
 
-    <!-- Navigation Bar (Menu) -->
     <nav class="flex space-x-6 border-b border-gray-200 mb-8">
         <a href="#" class="nav-item py-3 text-sm font-medium transition duration-150" data-page="page-dashboard-nasional">Dashboard Nasional</a>
         <a href="#" class="nav-item py-3 text-sm font-medium text-gray-500 hover:text-carbon-dark transition duration-150" data-page="page-perbandingan-provinsi">Perbandingan Regional</a>
@@ -88,15 +80,9 @@
         <a href="#" class="nav-item py-3 text-sm font-medium text-gray-500 hover:text-carbon-dark transition duration-150" data-page="page-simulasi-pajak">Simulasi Pajak</a>
         <a href="#" class="nav-item py-3 text-sm font-medium text-gray-500 hover:text-carbon-dark transition duration-150" data-page="page-analisis-klaster">Analisis Klaster ML</a>
     </nav>
-    
-    <!-- ========================================================== -->
-    <!-- 1. DASHBOARD NASIONAL (Konten Asli) -->
-    <!-- ========================================================== -->
 
     <div id="page-dashboard-nasional" class="page-content">
-        <!-- Ringkasan Nasional (Cards) -->
         <section id="ringkasan-nasional" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <!-- Card 1: Total Emisi CO₂ Nasional -->
             <div id="card-emisi" class="card bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
@@ -107,7 +93,6 @@
                 </div>
                 
                 <div id="emisi-badge" class="mt-3 text-sm font-semibold flex items-center">
-                    <!-- Badge akan diisi oleh JS -->
                 </div>
                 
                 <div class="text-sm text-gray-500 mt-3 border-t pt-2 border-gray-100 dark:border-gray-700">
@@ -115,7 +100,6 @@
                 </div>
             </div>
 
-            <!-- Card 2: Total Penerimaan Pajak Karbon -->
             <div id="card-pajak" class="card bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
@@ -126,15 +110,13 @@
                 </div>
                 
                 <div id="pajak-pertumbuhan" class="mt-3 text-sm font-semibold text-carbon-green hidden">
-                    <!-- Diberi class 'hidden' jika tidak ada konten yang relevan di sini -->
                 </div>
 
                 <div class="text-sm text-gray-500 mt-3 border-t pt-2 border-gray-100 dark:border-gray-700">
-                    <a id="pajak-source-link" href="#" target="_blank" class="text-xs text-gray-500 hover:text-carbon-blue transition duration-150">Sumber: CNBC Indonesia</a>
+                    <a id="pajak-source-link" href="#" target="_blank" class="text-xs text-gray-500 font-bold hover:text-carbon-blue transition duration-150">Sumber: CNBC Indonesia</a>
                 </div>
             </div>
 
-            <!-- Card 3: Jumlah Perusahaan Terdampak -->
             <div id="card-perusahaan" class="card bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
@@ -147,7 +129,6 @@
                 <div class="mt-3 text-sm text-gray-500 relative flex justify-start">
                     <span id="sektor-breakdown" class="underline cursor-pointer hover:text-carbon-blue text-xs">Lihat Breakdown Sektor</span>
                     <div id="perusahaan-tooltip" class="absolute hidden bg-carbon-dark text-white text-xs p-2 rounded-lg -top-2 left-0 transform -translate-y-full w-48 shadow-xl">
-                        <!-- Isi oleh JS -->
                     </div>
                 </div>
 
@@ -156,7 +137,6 @@
                 </div>
             </div>
 
-            <!-- Card 4: Rata-rata Emisi Perusahaan -->
             <div id="card-tren" class="card bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between">
@@ -167,7 +147,6 @@
                 </div>
                 
                 <div id="avg-emisi-tooltip" class="mt-3 text-sm text-gray-500">
-                    <!-- Rata-rata Emisi Perusahaan dihapus -->
                 </div>
                     <span class="text-sm font-medium text-black-500">Harga rata-rata karbon di market ETS Asia di angka Rp 12.031,9/Ton co2</span>
                 <div class="text-sm text-gray-500 mt-3 border-t pt-2 border-gray-100 dark:border-gray-700">
@@ -176,7 +155,6 @@
             </div>
         </section>
 
-        <!-- Grafik Tren -->
         <section class="grid grid-cols-1 gap-6">
             <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                 <h2 class="text-xl font-semibold mb-4 text-carbon-dark">Harga Karbon ETS Asia & Nilai Tukar (2015-2024)</h2>
@@ -199,23 +177,15 @@
         </section>
     </div>
 
-    <!-- ========================================================== -->
-    <!-- 2. HALAMAN PERBANDINGAN ANTAR PROVINSI (Fitur 3) -->
-    <!-- ========================================================== -->
-
     <div id="page-perbandingan-provinsi" class="page-content hidden">
         <h2 class="text-2xl font-bold mb-6 text-carbon-dark">Perbandingan Kinerja Regional</h2>
-
-        <!-- Seleksi Provinsi (Diubah menjadi Region) -->
         <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
             <h3 class="text-lg font-semibold mb-3">Pilih Region/Provinsi (2-5)</h3>
             <div id="provinsi-select-container" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <!-- Dropdowns diisi oleh JS -->
             </div>
             <p class="text-xs text-gray-500 mt-3">Grafik dan tabel akan diperbarui secara otomatis setelah Anda memilih region.</p>
         </div>
 
-        <!-- a. Grafik Perbandingan Emisi & Tren -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8" id="comparison-charts">
             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                 <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Perbandingan Total Emisi CO₂ (Juta Ton)</h3>
@@ -231,29 +201,20 @@
             </div>
         </div>
 
-        <!-- b. Tabel Perbandingan Sektor -->
         <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 mb-8 hidden">
-            <!-- Tabel Sektor Dihilangkan karena data region tidak memiliki breakdown sektor -->
         </div>
     </div>
     
-    <!-- ========================================================== -->
-    <!-- 3. HALAMAN SEKTOR INDUSTRI (Fitur 4) -->
-    <!-- ========================================================== -->
-
     <div id="page-sektor-industri" class="page-content hidden">
         <h2 class="text-2xl font-bold mb-6 text-carbon-dark">Analisis Mendalam Sektor Industri</h2>
         
-        <!-- a. Heatmap Industri (Tabel Simulasi) -->
         <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 mb-8">
             <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Heatmap Industri dan Intensitas Emisi</h3>
             <div id="sector-heatmap-content" class="overflow-x-auto">
-                <!-- Heatmap/Tabel diisi oleh JS -->
             </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <!-- c. Kontribusi Sektor (Pie Chart) -->
             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                 <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Kontribusi Sektor Terhadap Emisi Nasional</h3>
                 <div class="h-96 flex justify-center items-center">
@@ -261,7 +222,6 @@
                 </div>
             </div>
 
-            <!-- b. Tren Emisi Per Sektor (Line Chart) -->
             <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                 <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Valuasi Pajak Karbon Terkumpul per Sektor (Triliun Rp)</h3>
                 <div class="h-96">
@@ -270,16 +230,12 @@
             </div>
         </div>
     </div>
-
-    <!-- ========================================================== -->
-    <!-- 4. HALAMAN SIMULASI PAJAK KARBON (Fitur 5) -->
-    <!-- ========================================================== -->
+================ -->
     
     <div id="page-simulasi-pajak" class="page-content hidden">
         <h2 class="text-2xl font-bold mb-6 text-carbon-dark">Kalkulator Simulasi Pajak Karbon</h2>
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Kalkulator Input -->
             <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-100 h-fit">
                 <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Masukkan Parameter Simulasi</h3>
                 <form id="tax-simulation-form" class="space-y-4">
@@ -294,7 +250,7 @@
                     <div>
                         <label for="industry-type" class="block text-sm font-medium text-gray-700 mb-1">Jenis Industri</label>
                         <select id="industry-type" required class="w-full p-2 border border-gray-300 rounded-lg focus:ring-carbon-blue focus:border-carbon-blue transition duration-150">
-                            <!-- Options diisi oleh JS -->
+
                         </select>
                     </div>
                     <button type="submit" class="w-full bg-carbon-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md">
@@ -303,7 +259,6 @@
                 </form>
             </div>
             
-            <!-- Hasil Simulasi -->
             <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                 <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Hasil Perhitungan Pajak Karbon</h3>
                 <div id="tax-simulation-result" class="text-gray-500">
@@ -312,18 +267,11 @@
             </div>
         </div>
     </div>
-
-<!-- POSISI: Sebelum penutup </div></div> (yaitu di akhir konten dashboard) -->
-
-    <!-- ========================================================== -->
-    <!-- 5. HALAMAN ANALISIS KLASTER K-MEANS (BARU) -->
-    <!-- ========================================================== -->
     
     <div id="page-analisis-klaster" class="page-content hidden">
         <h2 class="text-2xl font-bold mb-6 text-carbon-dark">Implementasi K-Means: Klasifikasi Region</h2>
         
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-            <!-- Kolom 1: Karakteristik Klaster (Visualisasi Centroid) -->
             <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                 <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Karakteristik 3 Klaster (Centroid)</h3>
                 <p class="text-sm text-gray-500 mb-4">Grafik ini memvisualisasikan rata-rata nilai variabel untuk setiap klaster.</p>
@@ -331,10 +279,7 @@
                     <canvas id="cluster-centroid-chart"></canvas>
                 </div>
             </div>
-
-            <!-- Kolom 2 & 3: Filter dan Identifikasi Region -->
             <div class="lg:col-span-2 space-y-6">
-                <!-- Tabel 1: Filter Region dan Hasil Klaster -->
                 <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100">
                     <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Identifikasi Region per Klaster</h3>
                     
@@ -350,30 +295,22 @@
                     </div>
 
                     <div id="cluster-region-table" class="overflow-x-auto mt-4">
-                        <!-- Tabel region akan diisi oleh JS -->
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Ringkasan Klaster -->
         <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 mb-8">
             <h3 class="text-xl font-semibold mb-4 text-carbon-dark">Deskripsi Klaster</h3>
             <div id="cluster-description-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <!-- Kartu Deskripsi Klaster akan diisi oleh JS -->
             </div>
         </div>
 
     </div>
 
-<!-- ========================================================== -->
-<!-- AKHIR DARI HALAMAN ANALISIS KLASTER -->
-<!-- ========================================================== -->
-
 </div>
 </div>
-<!-- Link ke JavaScript eksternal -->
-<script src="system.js"></script>
+<script src="app.js"></script>
 
 </body>
 
